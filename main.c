@@ -47,7 +47,9 @@ char AtbWord(char *c){//change word to opposite
     }
     return ans;
 }
-//////Part 3 - Atbash////////
+
+
+
 
 
 
@@ -60,12 +62,34 @@ void main()
     char str[WORD];
     char txt[TXT];
     gets(str);
-    //gets(txt);
-    //int gematry =
-    printf("word =%s, atbash = %s\n ",str,AtbWord(str));
+    gets(txt);
+    //////Part 1 - Gematric////////
+    int wordGem = WordCalc(str);
+    while(txt!='~'){
+        int i = 0;
+        int count = 0;
+        if(CharToNum(txt[0])!=0){
+            while(count < wordGem) {
+                count += txt[i];
+                i++;
+            }
+        }
+        else {i++;}
 
 
 
-    // printf("Gematria Sequences: %s\n",gematry());
+        }
+
+    }
+
+
+
+
+
+
+    printf("Gematria Sequences: %s\n",gematry());
+    printf("Atbash Sequences: %s\n",gematry());
+    printf("Anagram Sequences: %s\n",gematry());
+
 
 }
