@@ -47,6 +47,7 @@ char AtbWord(char *c){//change word to opposite
     }
     return ans;
 }
+//////Part 3 - Atbash////////
 
 
 
