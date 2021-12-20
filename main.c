@@ -4,8 +4,6 @@
 #define WORD 30
 //////Part 1 - Gematric////////
 int CharToNum(char c){//change char to number
-    int gem = 0;
-    
     if('A' <= c && c<='Z'){
     return c-'A'+1;
     }
