@@ -1,15 +1,17 @@
 CC = gcc
 AR = ar
-CFLAGS = -Wall -Werror
+FLAGS = -Wall -g
 
 all: stringProg
 
 
-stringProg: main.o
-	${CC} ${CFLAGS} -o stringProg main.o
+stringProg: main.o	
+	${CC} ${FLAGS} -o stringProg main.o
 
 main.o: main.c
-	${CC} ${CFLAGS} -c main.c
+	${CC} ${FLAGS} -c main.c
+	
+.PHONY: clean all
 
 clean:
-	rm -f *.a *.o stringProg
+	rm -f *.o stringProg
