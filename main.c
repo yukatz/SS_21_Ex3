@@ -2,13 +2,13 @@
 #include <string.h>
 #define TXT 1024
 #define WORD 30
+
 //////Part 1 - Gematric////////
 int CharToNum(char c){//change char to number
+    int gem = 0;
     if('A' <= c && c<='Z'){
-    return c-'A'+1;
-    }
-    if('a' <= c && c<='z')
-    {
+    return c-'A'+1;}
+    if('a' <= c && c<='z'){
     return c-'a'+1;
     }
     else{
@@ -24,21 +24,20 @@ int WordCalc(char *c){//change word to number by summing
         ans = ans+s;
     }
     return ans;
+
 }
-
-
-void getText(char txt[TXT]){    
+void getText(char txt[TXT]){
+    
     int counter = 0;
     char ch = getchar();
-    
     while(ch!='~'){
         txt[counter] = ch;
         ch = getchar();
         counter++;
     }
 }
-
 void getWord(char word[WORD]){
+    
     int counter = 0;
     char ch = getchar();
     while(ch!=' ' && ch!='\t' && ch!='\n'){
@@ -46,6 +45,14 @@ void getWord(char word[WORD]){
         ch = getchar();
         counter++;
     }
+}
+void new_print(char txt[], int i, int j, char to_print[]){
+    int index = 0;
+    for (; i <= j; i++) {
+        to_print[index] = txt[i];
+        index++;
+    }
+    to_print[index] = 0;
 }
 //////Part 2 - Atbash////////
 char AtbChar(char c){//change char to opposite
@@ -58,28 +65,47 @@ char AtbChar(char c){//change char to opposite
     atb=(char)num;
     return atb;
 }
+int check1(char txt[], int i, int j, char word[]){
+    
+    int counter = 0;
+    for(;i <= j; i++){
+        
+        if(txt[i] != ' '){
+            if(txt[i] != word[counter]){
+                return 0;
+            }
+            counter++;
+        }
+    }
+    return 1;
+}
 
+
+int check2(char txt[], int i, int j, char word[]){
+    int counter = 0;
+    for(;j >= i; j--){
+
+        if(txt[j] != ' '){
+            if(txt[j] != word[counter]){
+                return 0;
+            }
+            counter++;
+        }
+    }
+    return 1;
+}
 void Gematry(int val,char t[]){
     int t_len = strlen(t);
     char string[TXT] = {};
-    
     for(int i=0;i<t_len;i++){
-        
         while(CharToNum(t[i])==0){i++;}
        int cal = 0; int k=i;
-        
         while(cal<val && k<t_len){
             cal += CharToNum(t[k]);
             if(cal==val){
                 if(strlen(string)>0){
-                printf("%s~",string);
-                }
-            else{
-                int temp=0;
-                for(;i<k;i++){
-                    string[temp]=t[i];
-                    temp++;}
-                t[temp]=0;}
+                printf("%s~",string);}
+            new_print(t,i,k,string);
             }
             k++;
         }
@@ -87,7 +113,6 @@ void Gematry(int val,char t[]){
     if(strlen(string)>0)
     printf("%s",string);
 }
-
 char AtbWord(char *c){//change word to opposite
     int len = strlen(c);
     char ans[len];//string
@@ -99,7 +124,6 @@ char AtbWord(char *c){//change word to opposite
     }
     return *(ans);
 }
-
 void Atbash_Sequences(char ch[],char words[]){
     char Atbash[strlen(ch)];
     strcpy(Atbash,ch);
@@ -107,46 +131,16 @@ void Atbash_Sequences(char ch[],char words[]){
     char val[TXT]={};
     int t_len=strlen(words);
     int sum = WordCalc(Atbash);
-    
     for(int i=0;i<t_len;i++){
-        
         while(words[i] == ' '){i++;}
         int k=i;int temp=0;
-        
         while(temp<sum && k<t_len){
             temp+=CharToNum(words[k]);
-            
-            if(sum==temp){
-               int flag=1;
-                int count=0;
-                for(;i<=k;i++){
-                    
-                    if(words[i] != ' ')
-                    if(words[i] != ch[count]){
-                        flag=0;
-                    }
-                    count++;
-                }
-                
-              int flag1=1;
-                int count1=0;
-                for(;k>=i;k--){
-                    if(words[k] != ' ')
-                    if(words[k] != ch[count]){
-                        flag1=0;
-                    }
-                    count1++;
-                }
-                if(flag1==1 || flag==1){
-                    
+            if(sum==sum){
+                 if(check1(words, i, k, Atbash) || check2(words, i, k, Atbash)){
+
                 if(strlen(val)>0){printf("%s~",val);}
-                    
-                else{
-                    int temp1=0;
-                    for(;i<k;i++){
-                      val[temp1]=words[i];
-                       temp1++;}
-                         val[temp1]=0;}
+              new_print(words,i,k,Atbash);
         }
     }
     k++;
@@ -155,31 +149,22 @@ void Atbash_Sequences(char ch[],char words[]){
 if(strlen(val)>0)
 printf("%s",val);
 }
-
 void Anagram(char str[],char txt[]){
 int flag=0;
-    
 for(int i=0;i<strlen(txt);i++){
-    
     char new_word[strlen(txt)+1];
     strcpy(new_word,str);
     char temp_word[strlen(txt)-i+1];
-    
     for(int j=0;j<strlen(txt)-i+1;j++){
         temp_word[j]='\0';}
-    
         for(int j=i;j<strlen(txt);j++){
-            
             if(CharToNum(txt[i]) !=0){
                 char *pointer=strchr(new_word,txt[j]);
-                
                 if((txt[j]== ' ' || pointer!=NULL ) && strlen(new_word) != 0){
                     temp_word[j-i]=txt[j];}
                     else{break;}
                     if(pointer!=NULL){
-                        
                         int new_p=pointer- new_word;
-                        
                         for(int k=new_p+1;k<(strlen(new_word)+1);k++){
                             new_word[k-1]=new_word[k];
                         }
@@ -197,6 +182,8 @@ for(int i=0;i<strlen(txt);i++){
         }
     }
 }
+
+
 
 int main()
 {
