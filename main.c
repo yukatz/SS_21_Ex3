@@ -57,7 +57,7 @@ char AtbChar(char c){//change char to opposite
     int num=0;
     if(cn>64&&cn<91){num=cn+26-CharToNum(c)-(1*(CharToNum(c)-1));}
     if(cn>96&&cn<123){num=cn+26-CharToNum(c)-(1*(CharToNum(c)-1));}
-    if((cn<64||cn>123)||(cn>90&&cn<97)){num =  0;}
+    if((cn<64||cn>123)||(cn>90&&cn<97)){num =  NULL;}
     atb=(char)num;
     return atb;
 }
