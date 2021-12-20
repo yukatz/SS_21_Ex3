@@ -116,7 +116,7 @@ void Atbash_Sequences(char ch[],char words[]){
         while(temp<sum && k<t_len){
             temp+=CharToNum(words[k]);
             
-            if(sum==sum){
+            if(sum==temp){
                int flag=1;
                 int count=0;
                 for(;i<=k;i++){
