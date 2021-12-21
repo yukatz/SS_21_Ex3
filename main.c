@@ -3,12 +3,12 @@
 #define TXT 1024
 #define WORD 30
 
-//////Part 1 - Gematric////////
+
 int CharToNum(char c){//change char to number
-    if('A' <= c && c<='Z'){
+    if('A' <= c && c<='Z'){//checkin where is the latter,uppercase?
        int temp=(c-'A'+1);
     return temp;}
-    if('a' <= c && c<='z'){
+    if('a' <= c && c<='z'){//or is the latter,lowercase
         int temp = (c-'a'+1);
     return temp;
     }
@@ -17,36 +17,17 @@ int CharToNum(char c){//change char to number
     
 }
 
-int WordCalc(char ch[]){//change word to number by summing
+int WordCalc(char ch[]){//change word to number by summing charToNum
     int ans=0;
     int i=0;
-    while(ch[i]) {
-        ans += CharToNum(ch[i]);
+    while(ch[i]) {//running over all the words
+        ans += CharToNum(ch[i]);//summing it
         i++;
     }
     return ans;
 
 }
-void getText(char txt[TXT]){
-    int counter = 0;
-    char ch = getchar();
-    while(ch!='~'){
-        txt[counter] = ch;
-        ch = getchar();
-        counter++;
-    }
-}
-void getWord(char word[WORD]){
-    
-    int counter = 0;
-    char ch = getchar();
-    while(ch!=' ' && ch!='\t' && ch!='\n'){
-        word[counter] = ch;
-        ch = getchar();
-        counter++;
-    }
-}
-void new_print(char t[], int i, int k, char string[]){
+void reset_print(char t[], int i, int k, char string[]){//reset values to print 
     int index = 0;
     for (; i <= k; i++) {
         string[index] = t[i];
@@ -54,24 +35,24 @@ void new_print(char t[], int i, int k, char string[]){
     }
     string[index] = 0;
 }
-//////Part 2 - Atbash////////
+
 char AtbChar(char c){//change char to opposite
     char atb;
     int cn = (int)c;
-    int num=0;
+    int num=0;//looking for the place that we got
     if(cn>64&&cn<91){num=cn+26-CharToNum(c)-(1*(CharToNum(c)-1));}
     if(cn>96&&cn<123){num=cn+26-CharToNum(c)-(1*(CharToNum(c)-1));}
     if((cn<64||cn>123)||(cn>90&&cn<97)){num =  0;}
     atb=(char)num;
     return atb;
 }
-int check1(char ch[], int i, int k, char words[]){
+int check1(char ch[], int i, int k, char words[]){//check one way in word for Atbash
     
     int counter = 0;
-    for(;i <= k; i++){
+    for(;i <= k; i++){//looking forward
         
         if(ch[i] != ' '){
-            if(ch[i] != words[counter]){
+            if(ch[i] != words[counter]){//chek if contain
                 return 0;
             }
             counter++;
@@ -81,12 +62,12 @@ int check1(char ch[], int i, int k, char words[]){
 }
 
 
-int check2(char ch[], int i, int k, char words[]){
+int check2(char ch[], int i, int k, char words[]){//check from the other way
     int counter = 0;
-    for(;k >= i; k--){
+    for(;k >= i; k--){//looking backward 
 
         if(ch[k] != ' '){
-            if(ch[k] != words[counter]){
+            if(ch[k] != words[counter]){//check if contain
                 return 0;
             }
             counter++;
@@ -94,18 +75,18 @@ int check2(char ch[], int i, int k, char words[]){
     }
     return 1;
 }
-void Gematry(int val,char t[]){
+void Gematry(int val,char t[]){//Gematry function
     int t_len = strlen(t);
     char string[TXT] = {};
     for(int i=0;i<t_len;i++){
-        while(CharToNum(t[i])==0){i++;}
+        while(CharToNum(t[i])==0){i++;}//when it is not a letter
        int cal = 0; int k=i;
         while(cal<val && k<t_len){
-            cal += CharToNum(t[k]);
+            cal += CharToNum(t[k]);//summing the Gematry
             if(cal==val){
                 if(strlen(string)>0){
                 printf("%s~",string);}
-            new_print(t,i,k,string);
+            reset_print(t,i,k,string);
             }
             k++;
         }
@@ -125,18 +106,18 @@ char AtbWord(char *c){//change word to opposite
     }
     return *(ans);
 }
-void Atbash_se(char ch[]){
+void Atbash_se(char ch[]){////change word to opposite
      for (int i = 0; i < strlen(ch); i++) {
-        if('a'<=ch[i] && ch[i]<='z'){
-            ch[i] = ('z'- ch[i] + 'a');
+        if('a'<=ch[i] && ch[i]<='z'){//checking if it lowercase
+            ch[i] = ('z'- ch[i] + 'a');//convert
         }
-    if('A'<=ch[i] && ch[i]<='Z'){
-            ch[i] = ('Z'- ch[i] + 'A');
+    if('A'<=ch[i] && ch[i]<='Z'){//checking if it uppercase
+            ch[i] = ('Z'- ch[i] + 'A');//convert
         }
 }
 }
 
-void Atbash_Sequences(char ch[],char words[]){
+void Atbash_Sequences(char ch[],char words[]){//Atbash function
     char val[TXT]={}; 
     int t_len=strlen(words);
     char Atbash[strlen(ch)];
@@ -145,18 +126,18 @@ void Atbash_Sequences(char ch[],char words[]){
     int sum = WordCalc(Atbash);
     
     for(int i=0;i<t_len;i++){
-        while(words[i] == ' '){i++;}
+        while(words[i] == ' '){i++;}//when its empty
         int k=i;int temp=0;
         while(temp<sum && k<t_len){
-            temp+=CharToNum(words[k]);
+            temp+=CharToNum(words[k]);//summing to Gematry
             if(sum==temp){
                  if(check1(words, i, k, Atbash) || check2(words, i, k, Atbash)){
-
+//checking with the helper function if it contain
                 if(strlen(val)>0){
                     printf("%s~",val);
                     printf("a");
                 }
-              new_print(words,i,k,val);
+              reset_print(words,i,k,val);
         }
     }
     k++;
@@ -167,7 +148,8 @@ printf("%s",val);
 printf("b");
 }
 }
-void Anagram(char str[],char txt[]){
+
+void Anagram(char str[],char txt[]){//Anagram function
 int flag=0;
 for(int i=0;i<strlen(txt);i++){
     char new_word[strlen(txt)+1];
@@ -205,7 +187,25 @@ for(int i=0;i<strlen(txt);i++){
 
 int main()
 {
-    char str[WORD]={};
+    void getText(char txt[TXT]){//function to get the text by the rools
+    int count = 0;
+    char ch = getchar();
+    while(ch!='~'){
+        txt[count] = ch;
+        ch = getchar();
+        count++;
+    }
+}
+void getWord(char word[WORD]){//function to get the text by the rools
+    int count = 0;
+    char ch = getchar();
+    while(ch!=' ' && ch!='\t' && ch!='\n'){
+        word[count] = ch;
+        ch = getchar();
+        count++;
+    }
+}
+    char str[WORD]={};//define
     char txt[TXT]={};
     
     getWord(str);//function to get by the rool of the assighment
