@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <string.h>
 #define TXT 1024
@@ -45,6 +46,24 @@ char AtbChar(char c){//change char to opposite
     if((cn<64||cn>123)||(cn>90&&cn<97)){num =  0;}
     atb=(char)num;
     return atb;
+}
+    void getText(char txt[TXT]){//function to get the text by the rools
+    int count = 0;
+    char ch = getchar();
+    while(ch!='~'){
+        txt[count] = ch;
+        ch = getchar();
+        count++;
+    }
+}
+void getWord(char word[WORD]){//function to get the text by the rools
+    int count = 0;
+    char ch = getchar();
+    while(ch!=' ' && ch!='\t' && ch!='\n'){
+        word[count] = ch;
+        ch = getchar();
+        count++;
+    }
 }
 int check1(char ch[], int i, int k, char words[]){//check one way in word for Atbash
     
@@ -187,24 +206,6 @@ for(int i=0;i<strlen(txt);i++){
 
 int main()
 {
-    void getText(char txt[TXT]){//function to get the text by the rools
-    int count = 0;
-    char ch = getchar();
-    while(ch!='~'){
-        txt[count] = ch;
-        ch = getchar();
-        count++;
-    }
-}
-void getWord(char word[WORD]){//function to get the text by the rools
-    int count = 0;
-    char ch = getchar();
-    while(ch!=' ' && ch!='\t' && ch!='\n'){
-        word[count] = ch;
-        ch = getchar();
-        count++;
-    }
-}
     char str[WORD]={};//define
     char txt[TXT]={};
     
