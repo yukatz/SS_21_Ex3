@@ -95,6 +95,7 @@ int check2(char ch[], int i, int k, char words[]){//check from the other way
     return 1;
 }
 void Gematry(int val,char t[]){//Gematry function
+printf("Gematria Sequences: ");
     int t_len = strlen(t);
     char string[TXT] = {};
     for(int i=0;i<t_len;i++){
@@ -113,6 +114,7 @@ void Gematry(int val,char t[]){//Gematry function
     if(strlen(string)>0){
     printf("%s",string);
     }
+     printf("\n");
 }
 char AtbWord(char *c){//change word to opposite
     int len = strlen(c);
@@ -214,12 +216,10 @@ int main()
     
     int sum=WordCalc(str);//get the value number of the text
     
-     printf("Gematria Sequences: ");
+     
     Gematry(sum, txt);
-    
-    printf("\nAtbash Sequences: ");
+    printf("Atbash Sequences: ");
     Atbash_Sequences(str, txt);
     Anagram(str, txt);
-    
     return 0;
 }
