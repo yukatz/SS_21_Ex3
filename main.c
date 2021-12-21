@@ -164,9 +164,11 @@ void Atbash_Sequences(char ch[],char words[]){//Atbash function
 if(strlen(val)>0){
 printf("%s",val);
 }
+printf("\n");
 }
 
 void Anagram(char str[],char txt[]){//Anagram function
+printf("Anagram Sequences: ");
 int flag=0;
 for(int i=0;i<strlen(txt);i++){
     char new_word[strlen(txt)+1];
@@ -217,8 +219,6 @@ int main()
     
     printf("\nAtbash Sequences: ");
     Atbash_Sequences(str, txt);
-    
-    printf("\nAnagram Sequences: ");
     Anagram(str, txt);
     
     return 0;
