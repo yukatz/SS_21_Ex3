@@ -154,7 +154,6 @@ void Atbash_Sequences(char ch[],char words[]){//Atbash function
 //checking with the helper function if it contain
                 if(strlen(val)>0){
                     printf("%s~",val);
-                    printf("a");
                 }
               reset_print(words,i,k,val);
         }
@@ -164,7 +163,6 @@ void Atbash_Sequences(char ch[],char words[]){//Atbash function
 }
 if(strlen(val)>0){
 printf("%s",val);
-printf("b");
 }
 }
 
