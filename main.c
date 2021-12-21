@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <string.h>
 #define TXT 1024
@@ -216,7 +215,6 @@ int main()
     
     int sum=WordCalc(str);//get the value number of the text
     
-     
     Gematry(sum, txt);
     printf("Atbash Sequences: ");
     Atbash_Sequences(str, txt);
